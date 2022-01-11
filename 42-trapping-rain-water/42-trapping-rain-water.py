@@ -18,6 +18,5 @@ class Solution:
                 ans += (len(rdeq)*rdeq[0]-sum(rdeq))
                 rdeq = deque()
             rdeq.append(deq[i+1])
-        print(deq)
         return ans
             
