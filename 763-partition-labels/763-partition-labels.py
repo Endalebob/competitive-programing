@@ -7,12 +7,11 @@ class Solution:
                 dic[s[i]][1] = i
             else:
                 dic[s[i]] = [i,i]
-        heap = list(dic.values())
-        heapq.heapify(heap)
-        temp = heapq.heappop(heap)
+        heap = deque(dic.values())
+        temp = heap.popleft()
         minn,maxx = temp[0],temp[1]
         while heap:
-            temp = heapq.heappop(heap)
+            temp = heap.popleft()
             if temp[0]>maxx:
                 ans.append(maxx-minn+1)
                 minn,maxx = temp[0],temp[1]
