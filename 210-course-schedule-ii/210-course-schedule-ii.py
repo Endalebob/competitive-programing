@@ -1,10 +1,9 @@
 class Solution:
     def findOrder(self, numCourses: int, prerequisites: List[List[int]]) -> List[int]:
         pre_request = defaultdict(set)
-        
         course_list = []
         for course, pre_req in prerequisites:
-            pre_request[pre_req].add(course)
+            pre_request[course].add(pre_req)
         visited, cycle = set(),set()
         def dfs(i):
             if i in cycle:
@@ -22,4 +21,4 @@ class Solution:
         for i in range(numCourses):
             if dfs(i) == False:
                 return []
-        return course_list[::-1]
+        return course_list
