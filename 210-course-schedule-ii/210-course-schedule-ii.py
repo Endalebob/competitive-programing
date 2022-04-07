@@ -1,23 +1,25 @@
 class Solution:
     def findOrder(self, numCourses: int, prerequisites: List[List[int]]) -> List[int]:
         pre_request = defaultdict(set)
-        course_list = [0]*numCourses
+        
+        course_list = []
         for course, pre_req in prerequisites:
             pre_request[pre_req].add(course)
-            course_list[course] += 1
-        deq = deque()
-        ans = []
+        visited, cycle = set(),set()
+        def dfs(i):
+            if i in cycle:
+                return False
+            if i in visited:
+                return True
+            cycle.add(i)
+            for j in pre_request[i]:
+                if dfs(j) == False:
+                    return False
+            cycle.remove(i)
+            visited.add(i)
+            course_list.append(i)
+            return True
         for i in range(numCourses):
-            if course_list[i] == 0:
-                deq.append(i)
-        while deq:
-            current = deq.popleft()
-            ans.append(current)
-            for i in pre_request[current]:
-                if course_list[i] > 0:
-                    course_list[i] -= 1
-                    if course_list[i] == 0:
-                        deq.append(i)
-        if len(ans) == numCourses:
-            return ans
-        return []
+            if dfs(i) == False:
+                return []
+        return course_list[::-1]
