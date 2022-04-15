@@ -1,14 +1,14 @@
 class Solution:
     def findCircleNum(self, isConnected: List[List[int]]) -> int:
-        def dfs(index):
-            not_include.append(index)
-            for j in range (len(isConnected[index])):
-                if isConnected[index][j] == 1 and j not in not_include:
-                    dfs(j)
-        not_include = []
+        vstd = set()
         ans = 0
+        def dfs(i):
+            vstd.add(i)
+            for j in range(len(isConnected[i])):
+                if j not in vstd and isConnected[i][j] == 1:
+                    dfs(j)
         for i in range(len(isConnected)):
-            if i not in not_include:
+            if i not in vstd:
                 ans += 1
                 dfs(i)
         return ans
