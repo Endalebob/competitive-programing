@@ -1,7 +1,7 @@
 class Solution:
     def perms(self,nums,ans):
         if len(nums) == 1:
-            return [nums.copy()]
+            return [[nums[0]]]
         for i in range(len(nums)):
             n = nums.popleft()
             perms = self.permute(nums)
