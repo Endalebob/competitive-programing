@@ -10,4 +10,7 @@ class Solution:
             if not ro: return []
             return valid(ro.left) + [ro.val] + valid(ro.right)
         ans = valid(root)
-        return (ans == sorted(ans) and len(ans) == len(set(ans)))
+        for i in range(len(ans)-1):
+            if ans[i+1]<=ans[i]:
+                return False
+        return True
