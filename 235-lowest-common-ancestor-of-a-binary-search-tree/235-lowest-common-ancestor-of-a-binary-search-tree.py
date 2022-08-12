@@ -10,12 +10,12 @@ class Solution:
         val = []
         def rec(node):
             if not node:
-                return []
-            ans = []
+                return 0
+            ans = 0
             if node == p or node == q:
-                ans = [node]
+                ans = 1
             ans = rec(node.left) + ans + rec(node.right)
-            if len(ans) == 2 and not val:
+            if ans == 2 and not val:
                 val.append(node)
             return ans
         rec(root)
