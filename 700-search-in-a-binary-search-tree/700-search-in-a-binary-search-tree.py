@@ -9,5 +9,6 @@ class Solution:
         def value(root):
             if not root: return
             if root.val == val: return root
-            return value(root.left) or value(root.right)
+            if root.val > val: return value(root.left)
+            return value(root.right)
         return value(root)
