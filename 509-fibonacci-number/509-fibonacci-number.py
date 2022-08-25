@@ -1,10 +1,13 @@
 class Solution:
-    def fibb(self, n: int,dic) -> int:
-        if n in dic:
-            return dic[n]
-        else:
-            dic[n] = self.fibb(n-1,dic) + self.fibb(n-2,dic)
-        return dic[n]
     def fib(self, n: int) -> int:
-        dic = {0: 0, 1: 1}
-        return self.fibb(n,dic)
+        dic = {}
+        def rec(n):
+            if n == 0 or n == 1:
+                return n
+            if n in dic:
+                return dic[n]
+            dic[n] = rec(n-1)+rec(n-2)
+            return dic[n]
+        return rec(n)
+    
+        
