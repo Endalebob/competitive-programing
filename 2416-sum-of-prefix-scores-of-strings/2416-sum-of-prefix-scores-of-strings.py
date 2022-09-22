@@ -26,9 +26,5 @@ class Trie:
 class Solution:
     def sumPrefixScores(self, words: List[str]) -> List[int]:
         dic = Trie()
-        for i in words:
-            dic.insert(i)
-        ans = []
-        for i in words:
-            ans.append(dic.search(i))
-        return ans
+        for i in words: dic.insert(i)
+        return [dic.search(i) for i in words]
