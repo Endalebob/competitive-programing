@@ -1,33 +1,33 @@
 class WordDictionary:
 
     def __init__(self):
-        self.trie = [{  }, False];
+        self.root = [{},False];
 
     def addWord(self, word: str) -> None:
-        c = self.trie;
-
-        for letter in word:
-            if letter not in c[0]:
-                c[0][letter] = [{  }, False];
-            
-            c = c[0][letter];
-        
-        c[1] = True;
+        curr = self.root;
+        for i in word:
+            if i not in curr[0]:
+                curr[0][i] = [{},False]
+            curr = curr[0][i]
+        curr[1] = True
 
     def search(self, word: str) -> bool:
-        
-        def go(node=self.trie, x=0):
-            if x == len(word):
-                return node[1];
-            
-            ans = False;
-            if word[x] == '.':
-                for childKey, childData in node[0].items():
-                    ans |= go(childData, x+1);
-                    if ans: break;
-            elif word[x] in node[0]:
-                ans |= go(node[0][word[x]], x+1);
+        def look(idx = 0,dsa = self.root):
+            if idx == len(word):
+                return dsa[1]
+            ans = False
+            if word[idx] == '.':
+                for i in dsa[0]:
+                    ans |= look(idx+1,dsa[0][i])
+                    if ans:
+                        break
+            if word[idx] in dsa[0]:
+                ans |= (look(idx+1,dsa[0][word[idx]]))
+            return ans
+        return look()
 
-            return ans;
-        
-        return go();
+
+# Your WordDictionary object will be instantiated and called as such:
+# obj = WordDictionary()
+# obj.addWord(word)
+# param_2 = obj.search(word)
