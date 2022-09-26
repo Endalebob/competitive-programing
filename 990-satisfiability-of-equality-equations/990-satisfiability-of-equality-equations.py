@@ -20,7 +20,7 @@ class Solution:
         for i in equations:
             a,b = ord(i[0])-ord('a'),ord(i[-1])-ord('a')
             if i[1:-1] == equ:
-                if uf.find(a) != uf.find(b):
+                if uf.root[a] != uf.root[b]:
                     uf.union(a,b)
                     
         for i in equations:
