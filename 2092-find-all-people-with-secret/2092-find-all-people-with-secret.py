@@ -24,7 +24,7 @@ class Solution:
             people.clear()
             for a, b in meets[t]:
                 self.connect(parent, a, b)
-                people.update([a,b])
+                people.update({a,b})
             for p in people:
                 if not self.isConnected(parent, p, 0):
                     parent[p] = p
