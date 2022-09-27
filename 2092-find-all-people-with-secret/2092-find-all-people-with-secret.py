@@ -18,9 +18,9 @@ class Solution:
         for a, b, t in meetings:
             meets[t].append((a, b))
         self.connect(parent, 0, firstPerson)
-        people = set()
+        # people = set()
         for t in sorted(meets.keys()):
-            people.clear()
+            people = set()
             for a, b in meets[t]:
                 self.connect(parent, a, b)
                 people.update({a,b})
