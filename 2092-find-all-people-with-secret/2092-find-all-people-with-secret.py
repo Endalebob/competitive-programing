@@ -2,9 +2,8 @@ from collections import defaultdict
 
 class Solution:
     def getParent(self, parent, x):
-        if parent[x] == x:
-            return x
-        parent[x] = self.getParent(parent, parent[x])
+        if x != parent[x]:
+            parent[x] = self.getParent(parent,parent[x])
         return parent[x]
     
     def connect(self, parent, a, b):
