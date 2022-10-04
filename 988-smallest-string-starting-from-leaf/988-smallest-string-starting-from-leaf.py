@@ -6,7 +6,7 @@
 #         self.right = right
 class Solution:
     def smallestFromLeaf(self, root: Optional[TreeNode]) -> str:
-        self.ans = 'z'*8500
+        self.ans = '~'
         def dfs(r,s):
             if not r:
                 return
