@@ -3,8 +3,8 @@ class SegmentTree:
         self.seg_tree = defaultdict(int)
 
     def build(self):
-        n = pow(2,ceil(log2(len(sel.arr))))
-        for i in range(n, len(self.arr)+n):
+        n = len(self.arr)
+        for i in range(len(self.arr), len(self.arr)*2):
             self.seg_tree[i] = self.arr[i - n]
         while n != 0:
             for i in range(1, n):
