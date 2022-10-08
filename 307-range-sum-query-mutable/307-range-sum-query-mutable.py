@@ -5,11 +5,10 @@ class SegmentTree:
         self.append = append
 
     def build(self):
-        while len(self.arr) & (len(self.arr) - 1) != 0:
-            self.arr.append(self.append)
-        self.seg_tree = [self.append] * (2 * len(self.arr))
-        for i in range(len(self.seg_tree) // 2, len(self.seg_tree)):
-            self.seg_tree[i] = self.arr[i - len(self.arr)]
+        n = pow(2,ceil(log2(len(sel.arr))))
+        self.seg_tree = [self.append] * (2 * n)
+        for i in range(n, len(self.arr)+n):
+            self.seg_tree[i] = self.arr[i - n]
         n = len(self.arr)
         while n != 0:
             for i in range(1, n):
