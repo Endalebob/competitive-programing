@@ -1,15 +1,11 @@
 class SegmentTree:
     def __init__(self, arr, append):
-        self.seg_tree = None
-        self.arr = arr
-        self.append = append
+        self.seg_tree = defaultdict(int)
 
     def build(self):
         n = pow(2,ceil(log2(len(sel.arr))))
-        self.seg_tree = [self.append] * (2 * n)
         for i in range(n, len(self.arr)+n):
             self.seg_tree[i] = self.arr[i - n]
-        n = len(self.arr)
         while n != 0:
             for i in range(1, n):
                 self.seg_tree[i] = min(self.seg_tree[2 * i] , self.seg_tree[2 * i + 1])
