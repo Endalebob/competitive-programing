@@ -1,3 +1,34 @@
+class SegmentTree:
+    def __init__(self, arr, append):
+        self.seg_tree = None
+        self.arr = arr
+        self.append = append
+
+    def build(self):
+        while len(self.arr) & (len(self.arr) - 1) != 0:
+            self.arr.append(self.append)
+        self.seg_tree = [self.append] * (2 * len(self.arr))
+        for i in range(len(self.seg_tree) // 2, len(self.seg_tree)):
+            self.seg_tree[i] = self.arr[i - len(self.arr)]
+        n = len(self.arr)
+        while n != 0:
+            for i in range(1, n):
+                self.seg_tree[i] = min(self.seg_tree[2 * i] , self.seg_tree[2 * i + 1])
+            n //= 2
+
+    def query(self, lq, rq):
+        a, b = 0, len(self.arr) - 1
+
+        def find(node, lq, rq, ls, rs):
+            if rs < lq or ls > rq:
+                return self.append
+            if lq >= ls and rs >= rq:
+                return self.seg_tree[node]
+            v = (lq + rq) // 2
+            return min(find(node * 2, lq, v, ls, rs) , find(node * 2 + 1, v + 1, rq, ls, rs))
+
+        return find(1, a, b, lq, rq)
+
 class NumArray:
 
     def __init__(self, nums: List[int]):
@@ -8,7 +39,6 @@ class NumArray:
             self.tree[len(nums)+i] = nums[i]
         for i in range(len(nums)-1,0,-1):
             self.tree[i] = self.tree[2*i]+self.tree[2*i+1]
-        print(self.tree)
     def update(self, index: int, val: int) -> None:
         n = len(self.tree)//2+index
         self.tree[n] = val
