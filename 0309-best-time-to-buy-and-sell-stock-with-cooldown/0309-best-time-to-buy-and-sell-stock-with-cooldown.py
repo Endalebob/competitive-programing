@@ -1,9 +1,11 @@
 class Solution:
     def maxProfit(self, prices: List[int]) -> int:
-        @lru_cache(None)
+        memo = {}
         def dp(idx,state):
             if idx>=len(prices):
                 return 0
+            if (idx,state) in memo:
+                return memo[(idx,state)]
             if state == 1:
                 ans = 0
                 for i in range(idx,len(prices)):
@@ -16,5 +18,6 @@ class Solution:
                     if prices[idx]<=prices[i] and i-idx>3:
                         break
                     ans = max(ans,-prices[i]+dp(i+1,1))
+            memo[(idx,state)] = ans
             return ans
         return dp(0,0)
