@@ -16,7 +16,8 @@ class Solution:
             if i in special_case:
                 ans += special_case[i]
             else:
-                for j in sorted(iTr.keys(),reverse = True):
+                key = sorted(iTr.keys(),reverse = True)
+                for j in key:
                     if j <= i:
                         ans += (iTr[j]*(i//j))
                         i -= (j*(i//j))
