@@ -12,11 +12,11 @@ class Solution:
             ans.append(digit)
             return ans
         ans = ''
+        key = sorted(iTr.keys(),reverse = True)
         for i in separate_digit(num):
             if i in special_case:
                 ans += special_case[i]
             else:
-                key = sorted(iTr.keys(),reverse = True)
                 for j in key:
                     if j <= i:
                         ans += (iTr[j]*(i//j))
