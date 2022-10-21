@@ -6,11 +6,14 @@
 #         self.right = right
 class Solution:
     def rob(self, root: Optional[TreeNode]) -> int:
-        @lru_cache(None)
+        memo = {}
         def dp(root,flag):
             if not root:
                 return 0
+            if (root,flag) in memo:
+                return memo[(root,flag)]
             if flag:
-                return max(root.val+dp(root.left,1-flag)+dp(root.right,1-flag),dp(root.left,flag)+dp(root.right,flag))
-            return dp(root.left,1-flag)+dp(root.right,1-flag)
+                memo[(root,flag)]=max(root.val+dp(root.left,1-flag)+dp(root.right,1-flag),dp(root.left,flag)+dp(root.right,flag))
+            else: memo[(root,flag)]= dp(root.left,1-flag)+dp(root.right,1-flag)
+            return memo[(root,flag)]
         return dp(root,1)
