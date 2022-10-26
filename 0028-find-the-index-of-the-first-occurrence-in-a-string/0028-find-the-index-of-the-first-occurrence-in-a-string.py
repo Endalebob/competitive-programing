@@ -1,46 +1,42 @@
-class RabinKarp:
-
-    def __init__(self, patter, text, chr_len):
-        self.pattern = patter
-        self.text = text
-        self.d = chr_len
-        self.q = 10**9+7
-
-    def search(self):
-        m = len(self.pattern)
-        n = len(self.text)
-        if m>n:
-            return -1
-
-        hash_text = 0
-        hash_pattern = 0
-        h = 1
-
-        for _ in range(m - 1):
-            h = (h * self.d) % self.q
-
-        for i in range(m):
-            hash_pattern = (self.d * hash_pattern + ord(self.pattern[i])) % self.q
-            hash_text = (self.d * hash_text + ord(self.text[i])) % self.q
-
-        ans = -1
-        for i in range(n - m + 1):
-
-            if hash_text == hash_pattern:
-
-                j = 0
-                while j < m and self.text[i + j] == self.pattern[j]:
-                    j += 1
-                if j == m:
-                    return i
-            if i < n - m:
-                hash_text = ((hash_text - ord(self.text[i]) * h) * self.d + ord(self.text[i + m])) % self.q
-                if hash_text < 0:
-                    hash_text += self.q
-        return ans
-
 class Solution:
     def strStr(self, haystack: str, needle: str) -> int:
+        def pattern_table(pattern):
+            table = [0] * len(pattern)
+            index = 1
+            current_match = 0
+            while index < len(pattern):
+                if pattern[index] == pattern[current_match]:
+                    current_match += 1
+                    table[index] = current_match
+                    index += 1
+                else:
+                    if current_match:
+                        current_match = table[current_match - 1]
+                    else:
+                        current_match = 0
+                        index += 1
+            return table
+
+
+        def search(text,patter):
+            table = pattern_table(patter)
+            len_pattern = len(patter)
+            len_text = len(text)
+            if len_pattern > len_text:
+                return -1
+            i=j=0
+            start_indexs = -1
+            while i<len(text):
+                if text[i] == patter[j]:
+                    i += 1
+                    j += 1
+                if j == len_pattern:
+                    return i-j
+                elif i<len_text and text[i] != patter[j]:
+                    if j != 0:
+                        j = table[j-1]
+                    else:
+                        i += 1
+            return start_indexs
         
-        find = RabinKarp(needle,haystack,26)
-        return find.search()
+        return search(haystack,needle)
