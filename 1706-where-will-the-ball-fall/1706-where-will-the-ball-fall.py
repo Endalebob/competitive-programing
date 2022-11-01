@@ -1,6 +1,7 @@
 class Solution:
     def findBall(self, grid: List[List[int]]) -> List[int]:
         n,m = len(grid),len(grid[0])
+        @lru_cache(None)
         def dfs(r,c):
             if c == m or c == -1:
                 return -1
