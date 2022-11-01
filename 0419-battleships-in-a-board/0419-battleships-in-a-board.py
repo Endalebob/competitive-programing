@@ -1,7 +1,7 @@
 class Solution:
     def countBattleships(self, matrix: List[List[str]]) -> int:
         Component_count = 0
-        directions = [[0,1],[1,0],[-1,0],[0,-1]]
+        directions = [[0,1],[1,0]]
         row = len(matrix)
         col = len(matrix[0])
 
