@@ -1,3 +1,4 @@
+
 class Trie:
     def __init__(self):
         self.letters = {}
@@ -10,23 +11,7 @@ class Trie:
                 current.letters[letter] = Trie()
             current = current.letters[letter]
         current.is_end = True
-
-    def search(self, word):
-        current = self
-        for letter in word:
-            if letter not in current.letters:
-                return False
-            current = current.letters[letter]
-        return current.is_end
-
-    def prefix(self, pref):
-        current = self
-        for letter in pref:
-            if letter not in current.letters:
-                return False
-            current = current.letters[letter]
-        return True
-
+    
     def auto_complete(self, pref):
         current = self
         for letter in pref:
@@ -39,6 +24,7 @@ class Trie:
         def dfs(current, pref):
             if current.is_end:
                 words.append(pref)
+            # lette
             for i in range(26):
                 if len(words) >= 3:
                     return
@@ -49,6 +35,8 @@ class Trie:
         dfs(current, pref)
         return words
 
+
+    
 class Solution:
     def suggestedProducts(self, products: List[str], searchWord: str) -> List[List[str]]:
         trie = Trie()
