@@ -15,6 +15,7 @@ class Trie:
     def auto_complete(self, pref):
         current = self
         for letter in pref:
+            
             if letter not in current.letters:
                 return []
             current = current.letters[letter]
@@ -24,13 +25,11 @@ class Trie:
         def dfs(current, pref):
             if current.is_end:
                 words.append(pref)
-            # lette
-            for i in range(26):
+            letters = sorted(current.letters.keys())
+            for letter in letters:
                 if len(words) >= 3:
                     return
-                letter = chr(i + ord('a'))
-                if letter in current.letters:
-                    dfs(current.letters[letter], pref + letter)
+                dfs(current.letters[letter], pref + letter)
 
         dfs(current, pref)
         return words
