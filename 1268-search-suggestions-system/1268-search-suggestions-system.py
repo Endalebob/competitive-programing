@@ -1,5 +1,7 @@
 
-class Trie:
+
+    
+class Solution:
     def __init__(self):
         self.letters = {}
         self.is_end = False
@@ -8,7 +10,7 @@ class Trie:
         current = self
         for letter in word:
             if letter not in current.letters:
-                current.letters[letter] = Trie()
+                current.letters[letter] = Solution()
             current = current.letters[letter]
         current.is_end = True
     
@@ -34,11 +36,8 @@ class Trie:
         dfs(current, pref)
         return words
 
-
-    
-class Solution:
     def suggestedProducts(self, products: List[str], searchWord: str) -> List[List[str]]:
-        trie = Trie()
+        trie = self
         for product in products:
             trie.insert(product)
         temp = ''
