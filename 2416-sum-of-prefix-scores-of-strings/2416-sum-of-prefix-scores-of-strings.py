@@ -12,7 +12,6 @@ class Trie:
         for i in word:
             if i not in current.letters:
                 current.letters[i] = Node()
-            # current.count += 1
             current = current.letters[i]
             current.count += 1
 
