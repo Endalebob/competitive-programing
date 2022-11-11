@@ -9,13 +9,13 @@ class Solution:
         self.answer = 0
         def dfs(root):
             if not root:
-                return 0,0
-            su_ml,numl = dfs(root.left)
-            su_mr,numr = dfs(root.right)
+                return 0,0,0
+            su_ml,numl,ansl = dfs(root.left)
+            su_mr,numr,ansr = dfs(root.right)
+            ans = ansl+ansr
             total = su_ml+su_mr + root.val
             total_num = numl+numr+1
             if root.val == total//total_num:
-                self.answer += 1
-            return total,total_num
-        dfs(root)
-        return self.answer
+                ans += 1
+            return total,total_num,ans
+        return dfs(root)[2]
