@@ -1,22 +1,20 @@
-class Node:
-    def __init__(self):
-        self.letters = {}
-        self.count = 0
+
 class Trie:
 
     def __init__(self):
-        self.root = Node()
+        self.letters = {}
+        self.count = 0
 
     def insert(self, word: str) -> None:
-        current = self.root
+        current = self
         for i in word:
             if i not in current.letters:
-                current.letters[i] = Node()
+                current.letters[i] = Trie()
             current = current.letters[i]
             current.count += 1
 
     def search(self, word: str) -> bool:
-        current = self.root
+        current = self
         ans = 0
         for i in word:
             current = current.letters[i]
