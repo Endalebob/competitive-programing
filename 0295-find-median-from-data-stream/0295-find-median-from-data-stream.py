@@ -1,11 +1,11 @@
-import bisect
+from sortedcontainers import SortedList
 class MedianFinder:
 
     def __init__(self):
-        self.nums = []
+        self.nums = SortedList([])
 
     def addNum(self, num: int) -> None:
-        bisect.insort(self.nums,num)
+        self.nums.add(num)
 
     def findMedian(self) -> float:
         n = len(self.nums)
