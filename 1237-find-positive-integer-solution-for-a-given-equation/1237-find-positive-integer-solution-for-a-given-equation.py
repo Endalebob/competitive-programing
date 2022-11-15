@@ -15,9 +15,9 @@ class Solution:
         x = 1
         r = 1000
         m = 500
-        while x<=1000 and customfunction.f(x,1) <= z:
+        while x<=z and customfunction.f(x,1) <= z:
             l = 1
-            r = 1000
+            r = z
             while l<=r:
                 m = l + (r-l)//2
                 val = customfunction.f(x,m)
