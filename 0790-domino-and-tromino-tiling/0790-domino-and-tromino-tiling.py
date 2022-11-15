@@ -1,17 +1,14 @@
 class Solution:
     def numTilings(self, n: int) -> int:
-        MOD = 1_000_000_007
-
-        @cache  
-        def p(n):  
-            if n == 2:
-                return 1
-            return (p(n - 1) + f(n - 2)) % MOD
-
-        @cache  
-        def f(n):  
-            if n <= 2:
-                return n
-            return (f(n - 1) + f(n - 2) + 2 * p(n - 1)) % MOD
-
-        return f(n)
+        mod = 10**9 + 7
+        @lru_cache(None)
+        def dp(n):
+            if n == 0: return 1
+            ans = 0
+            for i in range(1,n+1):
+                if i < 3:
+                    ans += dp(n-i)
+                else:
+                    ans += 2*dp(n-i)
+            return ans % mod
+        return dp(n)%mod
