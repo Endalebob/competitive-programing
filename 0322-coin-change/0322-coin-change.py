@@ -1,12 +1,12 @@
 class Solution:
     def coinChange(self, coins: List[int], amount: int) -> int:
-        memo = {}
+        memo = [-9]*amount
         def knapsack(s):
             if s == amount:
                 return 0
             elif s>amount:
                 return float('inf')
-            if s in memo:
+            if memo[s] != -9:
                 return memo[s]
             ans = float('inf')
             for i in coins:
