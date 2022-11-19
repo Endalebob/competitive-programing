@@ -1,12 +1,14 @@
 class Solution:
     def coinChange(self, coins: List[int], amount: int) -> int:
-        coins.sort()
-        dp = [float('inf') for i in range(amount+1)]
-        dp[0] = 0
-        for i in range(1,amount+1):
-            for k in coins:
-                if i-k >= 0:
-                    dp[i] = min(dp[i],dp[i-k]+1)
-                else:
-                    break
-        return dp[amount] if dp[amount]<10**5 else -1
+        @lru_cache(None)
+        def knapsack(s):
+            if s == amount:
+                return 0
+            elif s>amount:
+                return float('inf')
+            ans = float('inf')
+            for i in coins:
+                ans = min(knapsack(s+i),ans)
+            return ans + 1
+        ret = knapsack(0)
+        return ret if ret != float('inf') else -1
