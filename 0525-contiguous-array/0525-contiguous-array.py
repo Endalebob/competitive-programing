@@ -7,8 +7,8 @@ class Solution:
             curr = curr+1 if nums[i] else curr-1
             if 0 == curr:
                 ans = i+1
-            if curr not in dic:
+            elif curr not in dic:
                 dic[curr] = i
-            if curr in dic:
+            elif curr in dic:
                 ans = max(ans,i-dic[curr])
         return ans
