@@ -9,6 +9,6 @@ class Solution:
                 ans = i+1
             elif curr not in dic:
                 dic[curr] = i
-            elif curr in dic:
+            else:
                 ans = max(ans,i-dic[curr])
         return ans
