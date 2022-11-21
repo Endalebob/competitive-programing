@@ -7,20 +7,20 @@ class Solution:
     def mergeInBetween(self, list1: ListNode, a: int, b: int, list2: ListNode) -> ListNode:
         copy_l2 = list2
         copy_l1 = list1
-        node = ListNode(next = list1)
+        node = ListNode()
+        ans = node
         
-        i,j = 0,0
-        while copy_l2.next:
+        na,bb = [],[]
+        while copy_l2:
+            bb.append(copy_l2.val)
             copy_l2 = copy_l2.next
-        while i != b:
+        while copy_l1:
+            na.append(copy_l1.val)
             copy_l1 = copy_l1.next
-            i += 1
-        copy_l2.next = copy_l1.next
+        new = na[:a] + bb + na[b+1:]
+        for i in new:
+            ans.next = ListNode(val = i)
+            ans = ans.next
         
-        copy_l1 = node
-        while j != a:
-            copy_l1 = copy_l1.next
-            j += 1
-        copy_l1.next = list2
         
         return node.next
