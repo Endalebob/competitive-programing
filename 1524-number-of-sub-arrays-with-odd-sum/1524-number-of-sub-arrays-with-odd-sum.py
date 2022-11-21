@@ -11,7 +11,7 @@ class Solution:
             sumUpToNow += arr[i]
             rem = sumUpToNow % 2
             count += prefixes[rem]
-            count %= mod
+            # count %= mod
             prefixes[rem] += 1
             
         totalSum = (len(arr) * (len(arr) + 1)) // 2
