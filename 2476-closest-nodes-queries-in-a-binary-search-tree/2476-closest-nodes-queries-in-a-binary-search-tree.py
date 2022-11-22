@@ -5,50 +5,37 @@
 #         self.left = left
 #         self.right = right
 class Solution:
-    def closestNodes(self, root: Optional[TreeNode], queries: List[int]) -> List[List[int]]:
+    def closestNodes(self, root: Optional[TreeNode], quiries: List[int]) -> List[List[int]]:
+        nums = []
         def inorder(root):
-            if not root:
-                return
+            if not root: return
             inorder(root.left)
             nums.append(root.val)
             inorder(root.right)
-        nums = []
         inorder(root)
         
+        def b_search(target):
+            l,r = 0,len(nums)-1
+            while l<r:
+                m = l+(r-l)//2
+                if nums[m] <= target:
+                    l = m+1
+                else:
+                    r = m
+            return l
         
         ret = []
-        for i in queries:
-            idx = bisect_right(nums,i)
+        for i in quiries:
+            idx = b_search(i)
             ans = [-1,-1]
-            if idx > 0:
-                ans[0] = nums[idx-1]
-            if idx <= len(nums):
-                if idx>0 and nums[idx-1] == i:
-                    ans[1] = nums[idx-1]
-                elif idx<len(nums):
+            if nums[idx-1] == i:
+                ans = [i,i]
+            else:
+                if nums[idx] <= i:
+                    ans[0] = nums[idx]
+                elif nums[idx-1]<=i:
+                    ans[0] = nums[idx-1]
+                if nums[idx] >= i:
                     ans[1] = nums[idx]
             ret.append(ans)
         return ret
-                    
-                    
-                
-#         def min_find(root,val):
-#             if not root:
-#                 return -1
-#             if root.val <= val:
-#                 return max(root.val,min_find(root.right,val))
-#             return min_find(root.left,val)
-#         def max_find(root,val):
-#             if not root:
-#                 return float('inf')
-#             if root.val >= val:
-#                 return min(root.val,max_find(root.left,val))
-#             return max_find(root.right,val)
-        
-#         ans = []
-#         for i in queries:
-#             a = max_find(root,i)
-#             if a == float('inf'):
-#                 a = -1
-#             ans.append([min_find(root,i),a])
-#         return ans
