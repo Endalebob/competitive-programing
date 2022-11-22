@@ -6,14 +6,16 @@
 #         self.right = right
 class Solution:
     def closestNodes(self, root: Optional[TreeNode], queries: List[int]) -> List[List[int]]:
-        def inorder(root,nums):
+        def inorder(root):
             if not root:
                 return
-            inorder(root.left,nums)
+            inorder(root.left)
             nums.append(root.val)
-            inorder(root.right,nums)
+            inorder(root.right)
         nums = []
-        inorder(root,nums)
+        inorder(root)
+        
+        
         ret = []
         for i in queries:
             idx = bisect_right(nums,i)
