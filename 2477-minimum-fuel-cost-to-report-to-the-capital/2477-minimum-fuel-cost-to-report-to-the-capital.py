@@ -14,6 +14,8 @@ class Solution:
             if in_degree[i] == 1:
                 deq.append(i)
                 cnt[i] += 1
+                
+                
         ans = 0
         while deq:
             node = deq.popleft()
