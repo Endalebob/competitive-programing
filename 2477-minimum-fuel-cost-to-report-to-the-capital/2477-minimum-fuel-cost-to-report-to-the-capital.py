@@ -1,15 +1,17 @@
 class Solution:
     def minimumFuelCost(self, roads: List[List[int]], seats: int) -> int:
+        
         graph = defaultdict(list)
         in_degree = defaultdict(int)
         cnt = defaultdict(int)
+        
         for i,j in roads:
             graph[i].append(j)
             graph[j].append(i)
             in_degree[i] += 1
             in_degree[j] += 1
         
-        deq = deque()
+        deq = []
         for i in range(1,len(roads)+1):
             if in_degree[i] == 1:
                 deq.append(i)
@@ -18,7 +20,7 @@ class Solution:
                 
         ans = 0
         while deq:
-            node = deq.popleft()
+            node = deq.pop()
             ans += int(ceil(cnt[node]/seats))
             for i in graph[node]:
                 in_degree[i] -= 1
