@@ -11,7 +11,7 @@ class Solution:
             in_degree[i] += 1
             in_degree[j] += 1
         
-        deq = []
+        deq = deque()
         for i in range(1,len(roads)+1):
             if in_degree[i] == 1:
                 deq.append(i)
@@ -20,7 +20,7 @@ class Solution:
                 
         ans = 0
         while deq:
-            node = deq.pop()
+            node = deq.popleft()
             ans += int(ceil(cnt[node]/seats))
             for i in graph[node]:
                 in_degree[i] -= 1
