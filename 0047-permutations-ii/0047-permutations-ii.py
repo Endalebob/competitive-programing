@@ -4,21 +4,15 @@ class Solution:
             if len(nums) == 1:
                 return [[nums[0]]]
             temp = []
+            vstd = set()
             for i in range(len(nums)):
-                current = nums[i]
-                new = nums[:i] + nums[i+1:]
-                pem = perm(new)
-                for i in pem:
-                    i.append(current)
-                    temp.append(i)
+                if nums[i] not in vstd:
+                    vstd.add(nums[i])
+                    current = nums[i]
+                    new = nums[:i] + nums[i+1:]
+                    pem = perm(new)
+                    for i in pem:
+                        i.append(current)
+                        temp.append(i)
             return temp
-        new = perm(nums)
-        ret = []
-        vstd = set()
-        for i in new:
-            tup = tuple(i)
-            if tup not in vstd:
-                vstd.add(tup)
-                ret.append(i)
-        return ret
-    
+        return perm(nums)
