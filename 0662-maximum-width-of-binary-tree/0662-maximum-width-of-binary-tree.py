@@ -6,24 +6,19 @@
 #         self.right = right
 class Solution:
     def widthOfBinaryTree(self, root: Optional[TreeNode]) -> int:
-        #first i need to know the left and right most element for every depth
-        #for root depth = 0 right = left =0
-        # can be expressed {depth : [left:right]}
-        dic = {}
-        def dfs(r,depth,pos):
-            if not r:
+        level = {}
+        def dp(root,depth,curr):
+            if not root:
                 return
-            if depth in dic:
-                dic[depth][0] = min(dic[depth][0],pos)
-                dic[depth][1] = max(dic[depth][1],pos)
+            if depth in level:
+                level[depth][0] = max(level[depth][0],curr)
+                level[depth][1] = min(level[depth][1],curr)
             else:
-                dic[depth] = [pos,pos]
-            
-            dfs(r.left,depth+1,2*pos)
-            dfs(r.right,depth+1,2*pos+1)
-        dfs(root,0,0)
+                level[depth] = [curr,curr]
+            dp(root.left,depth+1,2*curr)
+            dp(root.right,depth+1,2*curr+1)
+        dp(root,1,1)
         ans = 0
-        for i in dic:
-            ans = max(ans,dic[i][1] - dic[i][0]+1)
-        return ans
-            
+        for i in level:
+            ans = max(ans,level[i][0]-level[i][1])
+        return ans+1
