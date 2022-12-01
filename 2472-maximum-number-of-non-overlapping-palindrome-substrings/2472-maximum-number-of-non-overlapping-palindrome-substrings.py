@@ -8,7 +8,6 @@ class Solution:
                 l += 1
                 r -= 1
             return True
-        memo = {}
         @lru_cache(None)
         def dp(l,r):
             if r >= len(s) or r-l > k:
