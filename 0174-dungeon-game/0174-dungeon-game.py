@@ -11,10 +11,12 @@ class Solution:
                 return False
             new_val = val + d[r][c]
             return is_possible(r+1,c,new_val) or is_possible(r,c+1,new_val)
-        l,r = 1,10**9
+        l,r = 1,1000*n*mm
         ans = r
         while l<=r:
             m = l + (r-l)//2
+            if m>ans:
+                break
             if is_possible(0,0,m):
                 ans = min(m,ans)
                 r = m-1
