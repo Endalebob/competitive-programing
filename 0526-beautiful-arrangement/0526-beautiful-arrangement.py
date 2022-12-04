@@ -1,15 +1,17 @@
 class Solution:
     def countArrangement(self, n: int) -> int:
-        nums = list(range(1,n+1))
-        def dfs(idx):
+        nums = tuple(range(1,n+1))
+        @lru_cache(None)
+        def dfs(idx,num):
             if idx == n+1:
                 return 1
             ans = 0
-            for i in range(len(nums)):
-                if nums[i] % idx == 0 or idx % nums[i] == 0:
-                    temp = nums[i]
-                    nums[i] = 31
-                    ans += dfs(idx+1)
-                    nums[i] = temp
+            for i in range(len(num)):
+                if num[i] % idx == 0 or idx % num[i] == 0:
+                    # temp = nums[i]
+                    # nums[i] = 31
+                    new = tuple([j for j in num if j != num[i]])
+                    ans += dfs(idx+1,new)
+                    # nums[i] = temp
             return ans
-        return dfs(1)
+        return dfs(1,nums)
