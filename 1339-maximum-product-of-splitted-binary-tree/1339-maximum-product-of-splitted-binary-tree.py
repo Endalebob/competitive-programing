@@ -13,9 +13,9 @@ class Solution:
             val = root.val + dfs(root.right) + dfs(root.left)
             ans.add(val)
             return val
-        dfs(root)
+        total = dfs(root)
         ans = sorted(list(ans))
         ret = 0
         for i in ans:
-            ret = max(ret,i*(ans[-1]-i))
+            ret = max(ret,i*(total-i))
         return ret % (10**9+7)
