@@ -14,10 +14,8 @@ class Solution:
             val.append(root.val)
             inord(root.right)
         inord(root)
-        root = temp = TreeNode()
-        for i in range(len(val)-1):
-            root.val = val[i]
-            root.right = TreeNode()
+        temp = root = TreeNode()
+        for i in val:
+            root.right = TreeNode(i)
             root = root.right
-        root.val = val[-1]
-        return temp
+        return temp.right
