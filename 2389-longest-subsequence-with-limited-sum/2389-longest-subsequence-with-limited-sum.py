@@ -1,10 +1,9 @@
 class Solution:
     def answerQueries(self, nums: List[int], queries: List[int]) -> List[int]:
         nums.sort()
-        pref_ = [nums[0]]
         for i in range(1,len(nums)):
-            pref_.append(pref_[-1]+nums[i])
+            nums[i] += nums[i-1]
         ans = []
         for i in queries:
-            ans.append(bisect_right(pref_,i))
+            ans.append(bisect_right(nums,i))
         return ans
