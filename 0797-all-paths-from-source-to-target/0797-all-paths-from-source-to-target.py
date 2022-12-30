@@ -1,16 +1,18 @@
 class Solution:
-    def allPathsSourceTarget(self, g: List[List[int]]) -> List[List[int]]:
-        paths = []
+    def allPathsSourceTarget(self, grap: List[List[int]]) -> List[List[int]]:
         graph = defaultdict(list)
-        target = 0
-        for i in range(len(g)):
-            for j in g[i]:
-                target = max(target,j)
+        for i in range(len(grap)):
+            for j in grap[i]:
                 graph[i].append(j)
-        def dfs(node,path):
-            if node == target:
-                paths.append(deepcopy(path))
+        ans = []
+        def dp(node,path):
+            path.append(node)
+            if node == len(grap)-1:
+                ans.append(deepcopy(path))
+                path.pop()
+                return
             for i in graph[node]:
-                dfs(i,path+[i])
-        dfs(0,[0])
-        return paths
+                dp(i,path)
+            path.pop()
+        dp(0,[])
+        return ans
