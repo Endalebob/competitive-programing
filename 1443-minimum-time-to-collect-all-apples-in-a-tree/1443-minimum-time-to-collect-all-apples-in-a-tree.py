@@ -4,17 +4,15 @@ class Solution:
         for i,j in edges:
             graph[i].append(j)
             graph[j].append(i)
-        root = 0
         vstd = set()
-        def dfs(root):
-            vstd.add(root)
-            val = 0
-            for i in graph[root]:
+        def dfs(node,depth):
+            vstd.add(node)
+            ans = 0
+            for i in graph[node]:
                 if i not in vstd:
-                    val += dfs(i)
-            if val:
-                return val+1
-            if hasApple[root]:
-                return 1
-            return val
-        return max(0,2*(dfs(root)-1))
+                    ans += dfs(i,depth+1)
+            if ans or hasApple[node]:
+                return ans + 2
+            return ans
+        return max(0,dfs(0,0)-2)
+            
