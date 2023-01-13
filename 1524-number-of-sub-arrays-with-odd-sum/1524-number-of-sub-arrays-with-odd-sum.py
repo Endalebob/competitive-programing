@@ -1,21 +1,12 @@
 class Solution:
     def numOfSubarrays(self, arr: List[int]) -> int:
-        
-        sumUpToNow = 0
-        count = 0
-        mod = (10**9+7)
-        prefixes = defaultdict(int)
-        prefixes[0] = 1
-        
-        for i in range(len(arr)):
-            sumUpToNow += arr[i]
-            rem = sumUpToNow % 2
-            count += prefixes[rem]
-            # count %= mod
-            prefixes[rem] += 1
-            
-        totalSum = (len(arr) * (len(arr) + 1)) // 2
-        
-        return (totalSum - count) % mod
-         
-        
+        pref = defaultdict(int)
+        pref[0] += 1
+        ans = 0
+        curr = 0
+        for i in arr:
+            curr += i
+            k = curr % 2
+            pref[k] += 1
+            ans += pref[1-k]
+        return ans%(10**9+7)
