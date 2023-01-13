@@ -1,21 +1,25 @@
 class Solution:
     def nextPermutation(self, nums: List[int]) -> None:
-        def find(idx):
-            ans = 1000
-            ret = idx+1
-            for i in range(idx+1,len(nums)):
-                if  nums[i] > nums[idx] and nums[i] < ans:
-                    ans = nums[i]
-                    ret = i
-            return ret
-        i = len(nums) - 1
-        while i > 0:
-            if nums[i] > nums[i-1]:
-                idx = find(i-1)
-                nums[idx],nums[i-1] = nums[i-1],nums[idx]
-                nums[i:] = sorted(nums[i:])
+        """
+        Do not return anything, modify nums in-place instead.
+        """
+        def rev(l,r):
+            while l<r:
+                nums[l],nums[r] = nums[r],nums[l]
+                l += 1
+                r -= 1
+        idx = -1
+        n = len(nums)
+        for i in range(n-2,-1,-1):
+            if nums[i] < nums[i+1]:
+                idx = i
+                break
+        if idx == -1:
+            rev(0,n-1)
+            return
+        for i in range(n-1,0,-1):
+            if nums[i] > nums[idx]:
+                nums[i],nums[idx] = nums[idx],nums[i]
+                rev(idx+1,n-1)
                 return
-            i -= 1
-        for i in range(len(nums)//2):
-            nums[i],nums[-1-i] = nums[-1-i], nums[i]
         
