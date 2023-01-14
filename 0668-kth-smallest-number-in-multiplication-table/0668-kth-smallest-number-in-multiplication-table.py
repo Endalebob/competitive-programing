@@ -1,16 +1,20 @@
 class Solution:
-    def findKthNumber(self, m: int, n: int, k: int) -> int:
-        l, r = 1, n * m
-        mid = (l + r) // 2
-        while l < r:
-            cnt = 0
+    def findKthNumber(self, mm: int, n: int, k: int) -> int:
+        def is_possible(m):
+            curr = 0
             i = 1
-            while i <= n and mid//i:
-                cnt += min(m, mid // i)
+            while curr < k and m//i and i<=mm:
+                curr += min(m//i,n)
                 i += 1
-            if cnt < k:
-                l = mid + 1
+            if curr < k:
+                return False
+            return True
+        l,r = 1,mm*n
+        while l < r:
+            m = l + (r-l)//2
+            if is_possible(m):
+                r = m
             else:
-                r = mid
-            mid = (l + r) // 2
-        return mid
+                l = m+1
+        return l
+                
