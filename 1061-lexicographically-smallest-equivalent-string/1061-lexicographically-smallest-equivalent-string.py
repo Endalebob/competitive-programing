@@ -5,6 +5,7 @@ class Solution:
             dic[i].add(j)
             dic[j].add(i)
         ans = ''
+        
         def dfs(node):
             if node in vstd:
                 return node
