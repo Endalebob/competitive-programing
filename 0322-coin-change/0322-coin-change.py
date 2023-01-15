@@ -10,21 +10,14 @@ class Solution:
         not to solve the same problem again again we need to memorize which 
         problem we already solved.
         '''
-        memo = {}
-        def dp(tot):
-            if tot == amount:
-                return 0
-            if tot > amount:
-                return float('inf')
-            if tot in memo:
-                return memo[tot]
-            ans = float('inf')
+        memo = {amount:0}
+        for tot in range(amount-1,-1,-1):
+            cur = float('inf')
             for i in coins:
-                ans = min(1+dp(tot+i),ans)
-            memo[tot] = ans
-            return ans
-        num_coin = dp(0)
-        if num_coin == float('inf'):
+                if tot + i in memo:
+                    cur = min(cur,memo[tot+i]+ 1)
+            memo[tot] = cur
+        if memo[0] == float('inf'):
             return -1
-        return num_coin
+        return memo[0]
         
