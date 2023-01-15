@@ -1,17 +1,21 @@
 class Solution:
     def countArrangement(self, n: int) -> int:
-        nums = tuple(range(1,n+1))
+        '''
+        take a sit and relax an know this fact God is in control
+        check every possibilities. and track which num you use.
+        '''
+        
         @lru_cache(None)
-        def dfs(idx,num):
+        def dp(idx,include):
             if idx == n+1:
                 return 1
             ans = 0
-            for i in range(len(num)):
-                if num[i] % idx == 0 or idx % num[i] == 0:
-                    # temp = nums[i]
-                    # nums[i] = 31
-                    new = tuple([j for j in num if j != num[i]])
-                    ans += dfs(idx+1,new)
-                    # nums[i] = temp
+            for i in include:
+                if idx%i and i%idx:
+                    continue
+                new = tuple(j for j in include if j != i)
+                ans += dp(idx+1,new)
             return ans
-        return dfs(1,nums)
+        return dp(1,tuple(i for i in range(1,n+1)))
+                    
+        
