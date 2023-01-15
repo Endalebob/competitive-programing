@@ -1,6 +1,5 @@
 class Solution:
     def change(self, a: int, c: List[int]) -> int:
-        vstd = set()
         c.sort()
         memo = {}
         def dp(s,idx):
