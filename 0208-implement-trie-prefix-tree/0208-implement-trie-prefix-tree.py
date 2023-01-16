@@ -1,36 +1,34 @@
-
 class Trie:
+
     def __init__(self):
         self.letters = {}
-        self.is_end = False
-    def insert(self,word):
+        self.end = False
+
+    def insert(self, word: str) -> None:
         current = self
+        for i in word:
+            if i not in current.letters:
+                current.letters[i] = Trie()
+            current = current.letters[i]
+        current.end = True
 
-        for letter in word:
-            if letter not in current.letters:
-                current.letters[letter] = Trie()
-            current = current.letters[letter]
-        current.is_end = True
-
-    def search(self,word):
-
-        val_of_a = ord('a')
+    def search(self, word: str) -> bool:
         current = self
-        for letter in word:
-            if letter not in current.letters:
+        for i in word:
+            if i not in current.letters:
                 return False
-            current = current.letters[letter]
+            current = current.letters[i]
+        return current.end
+        
 
-        return current.is_end
-
-    def startsWith(self,word):
+    def startsWith(self, prefix: str) -> bool:
         current = self
-        for letter in word:
-            if letter not in current.letters:
+        for i in prefix:
+            if i not in current.letters:
                 return False
-            current = current.letters[letter]
-
+            current = current.letters[i]
         return True
+        
 
 
 # Your Trie object will be instantiated and called as such:
