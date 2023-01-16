@@ -1,20 +1,24 @@
 class Solution:
-    def canFinish(self, n: int, p: List[List[int]]) -> bool:
-        indegree = defaultdict(int)
-        out_degree = defaultdict(list)
-        deq = deque()
-        for i in p:
-            indegree[i[0]] += 1
-            out_degree[i[1]].append(i[0])
-        for i in range(n):
-            if not indegree[i]:
-                deq.append(i)
-        while deq:
-            curr = deq.popleft()
-            for i in out_degree[curr]:
-                indegree[i] -= 1
-                if indegree[i] == 0:
-                    deq.append(i)
-            n -= 1
-        return n == 0
+    def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
+        glb_flag = set()
+        graph = defaultdict(list)
+        for dep,ind in prerequisites:
+            graph[ind].append(dep)
         
+        def top_sort(node):
+            if node in glb_flag:
+                return True
+            if node in lcl_flag:
+                return False
+            lcl_flag.add(node)
+            for adj in graph[node]:
+                if not top_sort(adj):
+                    return False
+            lcl_flag.remove(node)
+            glb_flag.add(node)
+            return True
+        for i in range(numCourses):
+            lcl_flag = set()
+            if not top_sort(i):
+                return False
+        return True
