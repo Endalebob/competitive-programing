@@ -3,7 +3,7 @@ class Solution:
         """
         Do not return anything, modify nums in-place instead.
         """
-        def rev(l,r):
+        def reverse(l,r):
             while l<r:
                 nums[l],nums[r] = nums[r],nums[l]
                 l += 1
@@ -15,11 +15,11 @@ class Solution:
                 idx = i
                 break
         if idx == -1:
-            rev(0,n-1)
-            return
+            reverse(0,n-1)
+            return nums
         for i in range(n-1,0,-1):
             if nums[i] > nums[idx]:
-                nums[i],nums[idx] = nums[idx],nums[i]
-                rev(idx+1,n-1)
-                return
-        
+                nums[idx],nums[i] = nums[i],nums[idx]
+                break
+        reverse(idx+1,n-1)
+        return nums
