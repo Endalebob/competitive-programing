@@ -14,9 +14,10 @@ class Solution:
                             return
                     ans.append(temp.copy())
                 return
-            temp.append(s[idx])
-            dfs(temp,idx+1)
-            temp.pop()
+            if not temp or ispalindrome(temp[-1]):
+                temp.append(s[idx])
+                dfs(temp,idx+1)
+                temp.pop()
             if temp:
                 temp[-1] += s[idx]
                 dfs(temp,idx+1)
