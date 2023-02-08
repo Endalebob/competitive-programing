@@ -1,6 +1,5 @@
 class Solution:
     def restoreArray(self, adjacentPairs):
-        from collections import defaultdict
         adj_list = defaultdict(list)
         for u, v in adjacentPairs:
             adj_list[u].append(v)
