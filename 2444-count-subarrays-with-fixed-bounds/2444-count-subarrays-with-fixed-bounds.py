@@ -6,7 +6,7 @@ class Solution:
             if minK > nums[i] or nums[i] > maxK:
                 out = i
             if nums[i] == minK:
-                min_idx =i
+                min_idx = i
             if nums[i] == maxK:
                 max_idx = i
             min_val = min(max_idx,min_idx)
