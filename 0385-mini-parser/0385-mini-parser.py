@@ -43,14 +43,13 @@
 
 class Solution:
     def deserialize(self, s: str) -> NestedInteger:
-        def toNI(xs):
+        def to_nested_integer(xs):
             if isinstance(xs, int):
                 return NestedInteger(xs)
             assert(isinstance(xs, list))
             n = NestedInteger()
             for x in xs:
-                n.add(toNI(x))
+                n.add(to_nested_integer(x))
             return n
-			
-        return toNI(json.loads(s))
-        
+
+        return to_nested_integer(json.loads(s))
