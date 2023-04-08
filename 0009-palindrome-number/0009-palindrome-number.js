@@ -3,13 +3,15 @@
  * @return {boolean}
  */
 var isPalindrome = function(x) {
-    var m = ""+x
-    var ans = true
-    for (let i = 0; i < (m.length)/2; i++){
-        if (m[i] != m[m.length-i-1]){
-        ans = false
-        }
-            
+    if (x<0){
+        return false;
     }
-    return ans
+    let num = 0;
+    let num1 = x;
+    while (x>0){
+        last_digit = x % 10
+        num = num * 10 + last_digit
+        x = Math.floor(x/10)
+    }
+    return num == num1
 };
