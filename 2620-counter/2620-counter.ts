@@ -1,5 +1,5 @@
-function createCounter(n: number): () => number {
-    return function() {
+const createCounter = (n: number)=>{
+    return () => {
         n += 1
         return n-1
     }
