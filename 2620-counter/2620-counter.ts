@@ -1,10 +1,6 @@
-const createCounter = (n: number)=>{
-    return () => {
-        n += 1
-        return n-1
-    }
+const createCounter = (n:number) =>{
+    return () => n++
 }
-
 
 /** 
  * const counter = createCounter(10)
