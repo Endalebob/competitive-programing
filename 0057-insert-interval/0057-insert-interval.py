@@ -1,21 +1,18 @@
 class Solution:
-    def insert(self, intervals: List[List[int]], ni: List[int]) -> List[List[int]]:
-        n = len(intervals)
-        for i in range(len(intervals)):
-            start,end = intervals[i]
-            if ni[0] < start:
-                intervals.insert(i,ni)
-                break
-        if n == len(intervals):
-            intervals.append(ni)
-        delete = []
-        for i in range(n):
-            if intervals[i][1] >= intervals[i+1][0]:
-                intervals[i+1][0] = intervals[i][0]
-                intervals[i][1] = max(intervals[i][1],intervals[i+1][1])
-                intervals[i+1][1] = max(intervals[i][1],intervals[i+1][1])
-                delete.append(i)
-                
-        for i in delete[::-1]:
-            intervals.pop(i)
-        return intervals
+    def insert(self, intervals: List[List[int]], newInterval: List[int]) -> List[List[int]]:
+        l,r = 0,len(intervals)
+        m = 0
+        while l<r:
+            m = l+(r-l)//2
+            if newInterval[0] >= intervals[m][0]:
+                l = m+1
+            else:
+                r = m
+        intervals.insert(l,newInterval)
+        ans = []
+        for i,j in intervals:
+            if not ans or i > ans[-1][-1]:
+                ans.append([i,j])
+            else:
+                ans[-1][-1] = max(ans[-1][-1],j)
+        return ans
