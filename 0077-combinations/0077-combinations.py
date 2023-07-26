@@ -8,10 +8,10 @@ class Solution:
                 return
             if idx>=n:
                 return
+            comb(idx+1,temp)
             temp.append(nums[idx])
             comb(idx+1,temp)
             temp.pop()
-            comb(idx+1,temp)
         comb(0,[])
         return combinations
             
