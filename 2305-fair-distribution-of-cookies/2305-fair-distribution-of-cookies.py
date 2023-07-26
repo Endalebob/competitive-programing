@@ -5,6 +5,8 @@ class Solution:
         def bact(idx,cnt):
             if len(cookies)-idx < cnt:
                 return
+            if max(dist) > self.ans:
+                return
             if idx == len(cookies):
                 self.ans = min(self.ans,max(dist))
                 return
