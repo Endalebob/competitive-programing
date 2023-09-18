@@ -1,25 +1,15 @@
 class Solution:
     def calculateMinimumHP(self, d: List[List[int]]) -> int:
         n,mm = len(d),len(d[0])
+        ispossible = lambda r,c : 0<=r<n and 0<=c<mm
         @lru_cache(None)
-        def is_possible(r,c,val):
-            if val<1:
-                return False
+        def is_possible(r,c):
             if r == n-1 and c == mm-1:
-                return val+d[r][c] > 0
-            if r>=n or c>=mm:
-                return False
-            new_val = val + d[r][c]
-            return is_possible(r+1,c,new_val) or is_possible(r,c+1,new_val)
-        l,r = 1,1000*n*mm
-        ans = r
-        while l<=r:
-            m = l + (r-l)//2
-            if m>ans:
-                break
-            if is_possible(0,0,m):
-                ans = min(m,ans)
-                r = m-1
-            else:
-                l = m+1
-        return ans
+                return min(d[-1][-1],0)
+            ans = -float('inf')
+            if ispossible(r+1,c):
+                ans = max(ans,is_possible(r+1,c))
+            if ispossible(r,c+1):
+                ans = max(ans,is_possible(r,c+1))
+            return min(0,ans+d[r][c])
+        return 1-is_possible(0,0)  
