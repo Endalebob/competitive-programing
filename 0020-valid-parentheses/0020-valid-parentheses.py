@@ -1,13 +1,15 @@
 class Solution:
     def isValid(self, s: str) -> bool:
-        dic = {')':'(','}':'{',']':'['}
+        open_par = {')':'(','}':'{',']':'['}
+        idx = 0
         stack = []
-        for i in s:
-            if i in dic and (not stack or stack[-1] != dic[i]):
-                return False
-            if i not in dic:
-                stack.append(i)
+        while idx < len(s):
+            if s[idx] in open_par:
+                if stack and stack[-1] == open_par[s[idx]]:
+                    stack.pop()
+                else:
+                    return False
             else:
-                stack.pop()
-        return not stack
-            
+                stack.append(s[idx])
+            idx += 1
+        return len(stack) == 0
