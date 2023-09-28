@@ -8,10 +8,11 @@ class Node:
 
 from typing import Optional
 class Solution:
-    def cloneGraph(self, nodee: Optional['Node']) -> Optional['Node']:
-        if not nodee:
-            return nodee
-        vstd = {}
+    def cloneGraph(self, node: Optional['Node']) -> Optional['Node']:
+        if not node:
+            return node
+        vstd = defaultdict(list)
+        
         def dfs(node):
             if node.val in vstd:
                 return vstd[node.val]
@@ -19,5 +20,4 @@ class Solution:
             for neigh in node.neighbors:
                 vstd[node.val].neighbors.append(dfs(neigh))
             return vstd[node.val]
-        return dfs(nodee)
-            
+        return dfs(node)
