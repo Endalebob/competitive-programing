@@ -1,15 +1,11 @@
 class Solution:
     def coinChange(self, coins: List[int], amount: int) -> int:
-        memo = {}
+        @lru_cache(None)
         def dp(idx,curr):
+            if curr > amount or idx >= len(coins):
+                return inf
             if curr == amount:
                 return 0
-            if curr > amount or idx>=len(coins):
-                return inf
-            if (idx,curr) not in memo:
-                memo[idx,curr] = min(dp(idx+1,curr),dp(idx,curr+coins[idx])+1)
-            return memo[idx,curr]
-        ans = dp(0,0)
-        if ans != inf:
-            return ans
-        return -1
+            return min(dp(idx,curr+coins[idx])+1,dp(idx+1,curr))
+        val = dp(0,0)
+        return val if val != inf else -1
