@@ -1,21 +1,15 @@
 class Solution:
     def longestPalindrome(self, s: str) -> str:
-        def is_pal(l,r):
-            while l<r:
-                if s[l] != s[r]:
-                    return False
-                l += 1
-                r -= 1
-            return True
-        ans = 1
-        ret = s[0]
-        i = 0
-        for i in range(len(s)-1):
-            for j in range(len(s)-1,i+ans-1,-1):
-                if is_pal(i,j):
-                    ans = j-i+1
-                    ret = s[i:j+1]
-                    break
-        return ret
+        ans = ''
+        def is_valid(l,r):
+            val = ''
+            while l>=0 and r<len(s) and s[l] == s[r]:
+                val = s[l:r+1]
+                l -=1
+                r += 1
+            return val
+        for i in range(len(s)):
+            ans = max(is_valid(i,i),is_valid(i,i+1),ans,key=len)
+        return ans
             
             
