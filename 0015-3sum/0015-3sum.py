@@ -3,18 +3,17 @@ class Solution:
         nums.sort()
         ans = []
         for i in range(len(nums)-2):
-            if i>0 and nums[i] == nums[i-1]:
+            if i and nums[i] == nums[i-1]:
                 continue
             l,r = i+1,len(nums)-1
             while l<r:
-                tot = nums[i] + nums[l] + nums[r]
-                if tot == 0:
-                    ans.append([nums[i], nums[l], nums[r]])
-                    while r>0 and nums[r] == nums[r-1]:
-                        r -= 1
+                if nums[i] + nums[l] + nums[r] > 0:
                     r -= 1
-                elif tot<0:
+                elif nums[i] + nums[l] + nums[r] < 0:
                     l += 1
                 else:
+                    ans.append([nums[i], nums[l], nums[r]])
                     r -= 1
+                    while r>l and nums[r] == nums[r+1]:
+                        r -= 1
         return ans
