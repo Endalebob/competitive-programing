@@ -1,26 +1,27 @@
 class Solution:
     def networkDelayTime(self, times: List[List[int]], n: int, k: int) -> int:
-        '''
-        first I build the graph.
-        then I start from the k node and go until all nodes receive the mesage if it is possible.
-        
-        use bfs
-        '''
+        all_node = [float('inf') for i in range(n+1)]
+        all_node[0] = 0
         graph = defaultdict(list)
         for i,j,w in times:
-            graph[i].append([j,w])
-        
-        
-        heap = [[0,k]]
-        heapq.heapify(heap)
-        vstd = {k}
-        while heap:
+            graph[i].append((j,w))
+        all_node[k] = 0
+        vstd = set()
+        heap = []
+        heapq.heappush(heap,(0,k))
+        while len(vstd) < n and heap:
             w,node = heapq.heappop(heap)
+            
+            if node in vstd:
+                continue
+            
             vstd.add(node)
-            if len(vstd) == n:
-                return w
-            for i in graph[node]:
-                if i[0] not in vstd:
-                    heapq.heappush(heap,[w+i[1],i[0]])
-        return -1
+            for neigh, weight in graph[node]:
+                if w + weight < all_node[neigh]:
+                    all_node[neigh] = w + weight
+                    heapq.heappush(heap,((w+weight,neigh)))
+        ans= max(all_node)
+        return ans if ans != inf else -1
+            
+                
             
