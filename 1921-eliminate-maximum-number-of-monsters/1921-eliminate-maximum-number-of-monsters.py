@@ -1,13 +1,14 @@
 class Solution:
     def eliminateMaximum(self, dist: List[int], speed: List[int]) -> int:
-        for i in range(len(dist)):
-            dist[i] /= speed[i]
-        heapq.heapify(dist)
-        count = 0
-        while dist:
-            curr = heapq.heappop(dist)
-            if curr > count:
-                count += 1
+        # speed = dist/time
+        time = [d/s for d,s in zip(dist,speed)]
+        time.sort()
+        ans = 0
+        curr = 0
+        for i in time:
+            if curr < i:
+                ans += 1
             else:
-                return count
-        return count
+                return ans
+            curr += 1
+        return ans
