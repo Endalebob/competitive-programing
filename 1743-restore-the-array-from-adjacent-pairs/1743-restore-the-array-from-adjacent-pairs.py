@@ -1,17 +1,27 @@
 class Solution:
-    def restoreArray(self, adjacentPairs):
-        adj_list = defaultdict(list)
-        for u, v in adjacentPairs:
-            adj_list[u].append(v)
-            adj_list[v].append(u)
-        ans = [next(k for k, v in adj_list.items() if len(v) == 1)]
-        stack, visited = [adj_list[ans[0]]], set(ans)
-        while stack:
-            neighbors = stack.pop()
-            for v in neighbors:
-                if v in visited:
-                    continue
-                ans.append(v)
-                stack.append(adj_list[v])
-                visited.add(v)
+    def restoreArray(self, adjacentPairs: List[List[int]]) -> List[int]:
+        graph = defaultdict(list)
+        count = defaultdict(int)
+        for i,j in adjacentPairs:
+            graph[i].append(j)
+            graph[j].append(i)
+            count[i] += 1
+            count[j] += 1
+        start = 0
+        for i in count:
+            if count[i] == 1:
+                start = i
+                break
+        ans = []
+        que = [start]
+        vstd =set()
+        while que:
+            curr = que.pop()
+            vstd.add(curr)
+            for i in graph[curr]:
+                if i not in vstd:
+                    que.append(i)
+            ans.append(curr)
         return ans
+                
+                
