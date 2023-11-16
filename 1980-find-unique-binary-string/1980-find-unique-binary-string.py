@@ -1,14 +1,12 @@
 class Trie:
     def __init__(self):
         self.letter = {}
-        self.isend = False
     def insert(self,num):
         current = self
         for i in num:
             if i not in current.letter:
                 current.letter[i] = Trie()
             current = current.letter[i]
-        current.end = True
     
     def find(self,num):
         current = self
