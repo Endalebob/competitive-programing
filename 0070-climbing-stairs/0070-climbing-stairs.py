@@ -8,4 +8,3 @@ class Solution:
                 return 1
             return dp(idx+1)+dp(idx+2)
         return dp(0)
-        
