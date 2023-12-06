@@ -21,4 +21,4 @@ class Solution:
                     deq.append(node.right)
             ans.append(temp)
         return ans
-        
+                    
