@@ -10,14 +10,13 @@ from typing import Optional
 class Solution:
     def cloneGraph(self, node: Optional['Node']) -> Optional['Node']:
         if not node:
-            return node
-        vstd = defaultdict(list)
-        
-        def dfs(node):
-            if node.val in vstd:
-                return vstd[node.val]
-            vstd[node.val] = Node(node.val,[])
-            for neigh in node.neighbors:
-                vstd[node.val].neighbors.append(dfs(neigh))
-            return vstd[node.val]
+            return
+        list_node = defaultdict(int)
+        def dfs(nod):
+            if nod.val in list_node:
+                return list_node[nod.val]
+            list_node[nod.val] = Node(val=nod.val,neighbors=[])
+            for nigh in nod.neighbors:
+                list_node[nod.val].neighbors.append(dfs(nigh))
+            return list_node[nod.val]
         return dfs(node)
