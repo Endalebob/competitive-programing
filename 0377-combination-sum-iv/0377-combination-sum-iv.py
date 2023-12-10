@@ -1,13 +1,14 @@
 class Solution:
     def combinationSum4(self, nums: List[int], target: int) -> int:
+        nums.sort()
         @lru_cache(None)
-        def dp(curr):
-            if curr == target:
+        def dp(tot):
+            if tot == 0:
                 return 1
-            if curr > target:
+            if tot < 0:
                 return 0
             ans = 0
             for i in nums:
-                ans += dp(curr+i)
+                ans += dp(tot-i)
             return ans
-        return dp(0)
+        return dp(target)
