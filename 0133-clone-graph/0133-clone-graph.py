@@ -8,15 +8,15 @@ class Node:
 
 from typing import Optional
 class Solution:
-    def cloneGraph(self, node: Optional['Node']) -> Optional['Node']:
-        if not node:
+    def cloneGraph(self, nodes: Optional['Node']) -> Optional['Node']:
+        if not nodes:
             return
-        list_node = defaultdict(int)
-        def dfs(nod):
-            if nod.val in list_node:
-                return list_node[nod.val]
-            list_node[nod.val] = Node(val=nod.val,neighbors=[])
-            for nigh in nod.neighbors:
-                list_node[nod.val].neighbors.append(dfs(nigh))
-            return list_node[nod.val]
-        return dfs(node)
+        node_list = defaultdict(int)
+        def dfs(node):
+            if node.val in node_list:
+                return node_list[node.val]
+            node_list[node.val] = Node(val=node.val,neighbors=[])
+            for i in node.neighbors:
+                node_list[node.val].neighbors.append(dfs(i))
+            return node_list[node.val]
+        return dfs(nodes)
