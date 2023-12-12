@@ -15,7 +15,7 @@ class Solution:
         def dfs(node):
             if node.val in node_list:
                 return node_list[node.val]
-            node_list[node.val] = Node(val=node.val,neighbors=[])
+            node_list[node.val] = Node(val=node.val, neighbors=[])
             for i in node.neighbors:
                 node_list[node.val].neighbors.append(dfs(i))
             return node_list[node.val]
